@@ -10,34 +10,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout del repositorio
       uses: actions/checkout@v3
 
-    - name: Set up JDK 17
+    - name: Configurar Java 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Cache Maven packages
+    - name: Cache de dependencias Maven
       uses: actions/cache@v3
       with:
         path: ~/.m2
         key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-maven
 
-    - name: Build and run tests
+    - name: Compilar y ejecutar pruebas
       run: mvn clean install
 
-    - name: Run JMeter tests
+    - name: Ejecutar pruebas de rendimiento JMeter
       run: mvn jmeter:jmeter
 
-    - name: SonarQube analysis
+    - name: Análisis de calidad con SonarCloud
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: |
-        mvn sonar:sonar \
-          -Dsonar.projectKey=ErnestoDiazM_evaluacion-m4-ernesto \
-          -Dsonar.organization=tu-organizacion-sonarcloud \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=$SONAR_TOKEN
+      run: mvn sonar:sonar -Dsonar.projectKey=ErnestoDiazM_evaluacion-m4-ernesto -Dsonar.organization=tu-organizacion -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
