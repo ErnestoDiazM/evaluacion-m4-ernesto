@@ -35,4 +35,4 @@ jobs:
     - name: Análisis de calidad con SonarCloud
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      run: mvn sonar:sonar -Dsonar.projectKey=ErnestoDiazM_evaluacion-m4-ernesto -Dsonar.organization=tu-organizacion -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
+      run: mvn sonar:sonar -Dsonar.projectKey=ErnestoDiazM_evaluacion-m4-ernesto -Dsonar.organization=ernestodiazm -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONAR_TOKEN
